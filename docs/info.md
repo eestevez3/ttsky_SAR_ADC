@@ -13,9 +13,11 @@ The goal of the project is to make an 8-bit resolution SAR ADC similar to a grou
 
 The sample and hold would function fine without the unity gain amplifier following the capacitor, but I wanted to test different configurations to see how it affected the output. I'll likely do some research in regards to different S&H circuits I could try, but this is what I have for now.
 
+Added the testbench and moved the simulations from the S&H circuit schematic.
+
 ## How to test
 
-Since it's currently just the schematic of the S&H, simply netlist and simulate, then load the waveforms. It should show the input vs. the two different sizings that I'm testing, the input vs. the capacitive inputs to the amplifier, and the clock.
+Added the testbench to simulate. Should just be able to run the testbench, and it should save locally.
 
 ## External hardware
 
