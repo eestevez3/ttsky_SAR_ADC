@@ -1,0 +1,7 @@
+set ngbehavior=hsa
+set skywaterpdk
+set ng_nomodcheck
+set num_threads=8
+option noinit
+option klu
+optran 0 0 0 40p 2n 0

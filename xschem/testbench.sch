@@ -27,10 +27,11 @@ logx=0
 logy=0
 hilight_wave=-1
 
-color="12 7 8"
+color="12 7 8 11"
 node="pin_out1
 sh_out
-vshin"}
+vshin
+parax_out1"}
 B 2 1220 -1200 2020 -800 {flags=graph
 y1=0
 y2=2
@@ -74,13 +75,14 @@ logx=0
 logy=0
 hilight_wave=-1
 
-color="7 12 8"
+color="7 12 8 11"
 node="sh_out2
 pin_out2
-vshin"}
+vshin
+parax_out2"}
 B 2 2100 -1200 2900 -800 {flags=graph
-y1=-0.0011668943
-y2=0.00010075632
+y1=-0.058
+y2=2e-05
 ypos1=0
 ypos2=2
 divy=5
@@ -101,25 +103,34 @@ logy=0
 hilight_wave=-1
 
 
-color=12
-node=i(vvcc)}
+color="12 11"
+node="i(vvcc)
+i(vrsh)"}
 N 1110 -180 1150 -180 {
 lab=SH_OUT}
 N 1110 -160 1170 -160 {
 lab=SH_OUT2}
 N 1270 -160 1270 -130 {
 lab=pin_out2}
-N 1150 -180 1150 -140 {
-lab=SH_OUT}
 N 1170 -160 1210 -160 {
 lab=SH_OUT2}
-N 1150 -140 1150 -130 {
-lab=SH_OUT}
 N 1410 -180 1410 -150 {
 lab=pin_out1}
 N 1150 -180 1350 -180 {
 lab=SH_OUT}
-C {devices/launcher.sym} 1270 -330 0 0 {name=h5
+N 1130 90 1170 90 {
+lab=SH_OUT}
+N 1130 110 1190 110 {
+lab=SH_OUT2}
+N 1290 110 1290 140 {
+lab=parax_out2}
+N 1190 110 1230 110 {
+lab=SH_OUT2}
+N 1430 90 1430 120 {
+lab=parax_out1}
+N 1170 90 1370 90 {
+lab=SH_OUT}
+C {devices/launcher.sym} 1270 -340 0 0 {name=h5
 descr="load waves" 
 tclcommand="xschem raw_read $netlist_dir/testbench.raw tran"
 }
@@ -200,3 +211,41 @@ C {devices/code.sym} 520 -490 0 0 {name=STIMULI only_toplevel=false value="
   quit 0
 .endc"}
 C {devices/ammeter.sym} 520 -220 0 0 {name=VrSH savecurrent=true}
+C {Sample_and_Hold.sym} 930 210 0 0 {name=x2
+schematic=Sample_and_Hold_parax.sim
+
+spice_sym_def="tcleval(.include [file normalize ../mag/Sample_and_Hold.sim.spice])"
+
+tclcommand="textwindow [file normalize ../mag/Sample_and_Hold.sim.spice]"
+}
+C {devices/lab_wire.sym} 1000 200 0 0 {name=p13 sig_type=std_logic lab=VREF}
+C {devices/lab_wire.sym} 1000 90 0 0 {name=p14 sig_type=std_logic lab=VSHIN}
+C {devices/lab_wire.sym} 1000 140 0 0 {name=p15 sig_type=std_logic lab=VCC}
+C {devices/lab_wire.sym} 1000 160 0 0 {name=p16 sig_type=std_logic lab=VSS}
+C {devices/lab_wire.sym} 1000 180 0 0 {name=p26 sig_type=std_logic lab=CLK}
+C {devices/lab_wire.sym} 1140 110 0 1 {name=p27 sig_type=std_logic lab=SH_OUT2}
+C {devices/lab_wire.sym} 1300 90 0 1 {name=p28 sig_type=std_logic lab=SH_OUT}
+C {devices/res.sym} 1400 90 1 0 {name=R3
+value=0.5k
+footprint=1206
+device=resistor
+m=1}
+C {devices/res.sym} 1260 110 1 0 {name=R4
+value=0.5k
+footprint=1206
+device=resistor
+m=1}
+C {devices/capa.sym} 1430 150 0 0 {name=C3
+m=1
+value=5p
+footprint=1206
+device="ceramic capacitor"}
+C {devices/capa.sym} 1290 170 0 0 {name=C4
+m=1
+value=5p
+footprint=1206
+device="ceramic capacitor"}
+C {devices/lab_pin.sym} 1430 180 0 0 {name=p29 sig_type=std_logic lab=VSS}
+C {devices/lab_pin.sym} 1290 200 0 1 {name=p30 sig_type=std_logic lab=VSS}
+C {devices/lab_pin.sym} 1290 110 0 1 {name=p31 sig_type=std_logic lab=parax_out2}
+C {devices/lab_pin.sym} 1430 90 0 1 {name=p32 sig_type=std_logic lab=parax_out1}
