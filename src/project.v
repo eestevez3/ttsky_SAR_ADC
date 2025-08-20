@@ -5,7 +5,7 @@
 
 `default_nettype none
 
-module tt_um_eestevez3_Sample_and_Hold (
+module tt_um_eestevez3_SAR_ADC (
     input  wire       VGND,
     input  wire       VDPWR,    // 1.8v power supply
 //    input  wire       VAPWR,    // 3.3v power supply
@@ -21,13 +21,11 @@ module tt_um_eestevez3_Sample_and_Hold (
 );
 
 	Sample_and_Hold Sample_and_Hold(
-		.VCC(VDDPWR)
+		.VCC(VDPWR)
 		.VSS(VGND)
 		.SH_IN(ua[1])
 		.SH_OUT(ua[0])
-		.SH_OUT2(ua[2])
-		.VREF(ua[3])
-		.CLK(clk)
+		.SH_CLK(clk)
 	);
     
     assign uo_out[0] = VGND;
