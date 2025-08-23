@@ -1,22 +1,25 @@
 ** sch_path: /home/ttuser/ttsky_SAR_ADC/xschem/testbench.sch
 **.subckt testbench
-x1 SH_OUT VSHIN SH_OUT2 VSS VREF VCC CLK Sample_and_Hold
-VCLK CLK VSS pulse(0 1.8 1ns 1ns 1ns 5ns 10ns 25)
-VVCC net1 VSS 1.8
+x1 SH_OUT VSHIN VSS VCC CLK Sample_and_Hold
+VCLK CLK VSS pulse(0 1.8 0.2ns 0.2ns 0.2ns 1ns 2ns 200)
+VVCC net3 VSS 1.8
 VVSS VSS 0 0
 VIN VSHIN VSS sin(0.9 0.9 10MEG)
 VVREF VREF VSS 0.9
-R1 pin_out1 SH_OUT 0.5k m=1
-R2 pin_out2 SH_OUT2 0.5k m=1
-C1 pin_out1 VSS 5p m=1
-C2 pin_out2 VSS 5p m=1
-VrSH VCC net1 0
+R1 pin_out1 SH_OUT 5k m=1
+C1 SH_OUT VSS .1p m=1
+VrSH VCC net3 0
 .save i(vrsh)
-x2 SH_OUT VSHIN SH_OUT2 VSS VREF VCC CLK Sample_and_Hold_parax
-R3 parax_out1 SH_OUT 0.5k m=1
-R4 parax_out2 SH_OUT2 0.5k m=1
-C3 parax_out1 VSS 5p m=1
-C4 parax_out2 VSS 5p m=1
+x2 SH_PARAX_OUT VSHIN VSS VCC CLK Sample_and_Hold_parax
+R2 parax_out SH_PARAX_OUT 5k m=1
+C2 SH_PARAX_OUT VSS .1p m=1
+x3 net1 VSS VB1 VCC VCC VSS VSS VCC VCC VSS VSS r2r_dac
+VB1 VB1 VSS pwl 0n 0 25n 0 25.2n 'VCC'
+R3 dac_out net1 5k m=1
+C3 net1 VSS .1p m=1
+x4 net2 VSS VB1 VCC VCC VSS VSS VCC VCC VSS VSS r2r_dac_parax
+R4 dac_out2 net2 5k m=1
+C4 net2 VSS .1p m=1
 **** begin user architecture code
 
 .param mc_mm_switch=1
@@ -46,72 +49,83 @@ C4 parax_out2 VSS 5p m=1
   write testbench.raw
   reset
   set appendwrite
-  repeat 5
+  *repeat 5
     save all
     tran 0.1n 250n uic
     write testbench.raw
     set appendwrite
     reset
-  end
+  *end
   quit 0
 .endc
 
 **** end user architecture code
 **.ends
 
-* expanding   symbol:  Sample_and_Hold.sym # of pins=7
+* expanding   symbol:  Sample_and_Hold.sym # of pins=5
 ** sym_path: /home/ttuser/ttsky_SAR_ADC/xschem/Sample_and_Hold.sym
 ** sch_path: /home/ttuser/ttsky_SAR_ADC/xschem/Sample_and_Hold.sch
-.subckt Sample_and_Hold SH_OUT SH_IN SH_OUT2 VSS VREF VCC CLK
+.subckt Sample_and_Hold SH_OUT SH_IN VSS VCC SH_CLK
 *.ipin SH_IN
-*.ipin CLK
+*.ipin SH_CLK
 *.opin SH_OUT
 *.ipin VSS
 *.ipin VCC
-*.opin SH_OUT2
-*.ipin VREF
-XM1 net2 CIN net1 VSS sky130_fd_pr__nfet_01v8 L=0.15 W=1 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
-+ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
-XM2 SH_OUT SH_OUT net1 VSS sky130_fd_pr__nfet_01v8 L=0.15 W=1 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29'
+XC1 SH_OUT VSS sky130_fd_pr__cap_mim_m3_1 W=2 L=2 MF=5 m=5
+XM6 SH_OUT CLKN SH_IN VCC sky130_fd_pr__pfet_01v8 L=0.15 W=2 nf=2 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29'
 + pd='2*int((nf+1)/2) * (W/nf + 0.29)' ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
-XM3 net1 VREF VSS VSS sky130_fd_pr__nfet_01v8 L=0.15 W=8 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
+XM7 SH_IN CLKB SH_OUT VSS sky130_fd_pr__nfet_01v8 L=0.15 W=1 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29'
++ pd='2*int((nf+1)/2) * (W/nf + 0.29)' ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
+XM8 CLKN SH_CLK VSS VSS sky130_fd_pr__nfet_01v8 L=0.15 W=1 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
 + ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
-XM4 net2 net2 VCC VCC sky130_fd_pr__pfet_01v8 L=0.15 W=4 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
-+ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
-XM5 SH_OUT net2 VCC VCC sky130_fd_pr__pfet_01v8 L=0.15 W=4 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
-+ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
-XC1 CIN VSS sky130_fd_pr__cap_mim_m3_1 W=2 L=2 MF=5 m=5
-XM6 CIN CLKN SH_IN VCC sky130_fd_pr__pfet_01v8 L=0.15 W=2 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
-+ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
-XM7 SH_IN CLKB CIN VSS sky130_fd_pr__nfet_01v8 L=0.15 W=1 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
-+ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
-XM8 CLKN CLK VSS VSS sky130_fd_pr__nfet_01v8 L=0.15 W=1 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
-+ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
-XM9 CLKN CLK VCC VCC sky130_fd_pr__pfet_01v8 L=0.15 W=2 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
+XM9 CLKN SH_CLK VCC VCC sky130_fd_pr__pfet_01v8 L=0.15 W=2 nf=2 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
 + ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
 XM10 CLKB CLKN VSS VSS sky130_fd_pr__nfet_01v8 L=0.15 W=1 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
 + ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
-XM11 CLKB CLKN VCC VCC sky130_fd_pr__pfet_01v8 L=0.15 W=2 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
+XM1 CLKB CLKN VCC VCC sky130_fd_pr__pfet_01v8 L=0.15 W=2 nf=2 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
 + ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
-XC2 CIN2 VSS sky130_fd_pr__cap_mim_m3_1 W=5 L=5 MF=5 m=5
-XM17 CIN2 CLKN SH_IN VCC sky130_fd_pr__pfet_01v8 L=0.15 W=2 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29'
-+ pd='2*int((nf+1)/2) * (W/nf + 0.29)' ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
-XM18 SH_IN CLKB CIN2 VSS sky130_fd_pr__nfet_01v8 L=0.15 W=1 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29'
-+ pd='2*int((nf+1)/2) * (W/nf + 0.29)' ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
-XM12 net4 CIN2 net3 VSS sky130_fd_pr__nfet_01v8 L=0.15 W=1 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
-+ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
-XM13 SH_OUT2 SH_OUT2 net3 VSS sky130_fd_pr__nfet_01v8 L=0.15 W=1 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29'
-+ pd='2*int((nf+1)/2) * (W/nf + 0.29)' ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
-XM14 net3 VREF VSS VSS sky130_fd_pr__nfet_01v8 L=0.15 W=8 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
-+ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
-XM15 net4 net4 VCC VCC sky130_fd_pr__pfet_01v8 L=0.15 W=4 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
-+ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
-XM16 SH_OUT2 net4 VCC VCC sky130_fd_pr__pfet_01v8 L=0.15 W=4 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29'
-+ pd='2*int((nf+1)/2) * (W/nf + 0.29)' ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
 .ends
 
 
-* expanding   symbol:  Sample_and_Hold_parax.sym # of pins=7
+* expanding   symbol:  r2r_dac.sym # of pins=11
+** sym_path: /home/ttuser/ttsky_SAR_ADC/xschem/r2r_dac.sym
+** sch_path: /home/ttuser/ttsky_SAR_ADC/xschem/r2r_dac.sch
+.subckt r2r_dac dac_out VSS b1 b3 b4 b5 b7 b6 b2 b0 VSUBS
+*.ipin b0
+*.opin dac_out
+*.ipin b1
+*.ipin b2
+*.ipin b3
+*.ipin b4
+*.ipin b5
+*.ipin b6
+*.ipin b7
+*.ipin VSS
+*.ipin VSUBS
+XR1 b0 dac_out VSUBS sky130_fd_pr__res_high_po_0p35 L=20 mult=1 m=1
+XR2 dac_out net1 VSUBS sky130_fd_pr__res_high_po_0p35 L=10 mult=1 m=1
+XR3 b1 net1 VSUBS sky130_fd_pr__res_high_po_0p35 L=20 mult=1 m=1
+XR4 net1 net2 VSUBS sky130_fd_pr__res_high_po_0p35 L=10 mult=1 m=1
+XR5 b2 net2 VSUBS sky130_fd_pr__res_high_po_0p35 L=20 mult=1 m=1
+XR6 net2 net3 VSUBS sky130_fd_pr__res_high_po_0p35 L=10 mult=1 m=1
+XR7 b3 net3 VSUBS sky130_fd_pr__res_high_po_0p35 L=20 mult=1 m=1
+XR8 net3 net4 VSUBS sky130_fd_pr__res_high_po_0p35 L=10 mult=1 m=1
+XR9 b4 net4 VSUBS sky130_fd_pr__res_high_po_0p35 L=20 mult=1 m=1
+XR10 net4 net5 VSUBS sky130_fd_pr__res_high_po_0p35 L=10 mult=1 m=1
+XR11 b5 net5 VSUBS sky130_fd_pr__res_high_po_0p35 L=20 mult=1 m=1
+XR12 net5 net6 VSUBS sky130_fd_pr__res_high_po_0p35 L=10 mult=1 m=1
+XR13 b6 net6 VSUBS sky130_fd_pr__res_high_po_0p35 L=20 mult=1 m=1
+XR14 net6 net7 VSUBS sky130_fd_pr__res_high_po_0p35 L=10 mult=1 m=1
+XR15 b7 net7 VSUBS sky130_fd_pr__res_high_po_0p35 L=20 mult=1 m=1
+XR16 net7 VSS VSUBS sky130_fd_pr__res_high_po_0p35 L=20 mult=1 m=1
+.ends
+
+
+* expanding   symbol:  Sample_and_Hold_parax.sym # of pins=5
 ** sym_path: /home/ttuser/ttsky_SAR_ADC/xschem/Sample_and_Hold.sym
 .include /home/ttuser/ttsky_SAR_ADC/mag/Sample_and_Hold.sim.spice
+
+* expanding   symbol:  r2r_dac_parax.sym # of pins=11
+** sym_path: /home/ttuser/ttsky_SAR_ADC/xschem/r2r_dac.sym
+.include /home/ttuser/ttsky_SAR_ADC/mag/r2r_dac.sim.spice
 .end

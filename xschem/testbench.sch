@@ -6,15 +6,15 @@ V {}
 S {}
 E {}
 B 2 1220 -760 2020 -360 {flags=graph
-y1=1.4477538
-y2=1.6365125
+y1=1.6950309
+y2=1.7568833
 ypos1=0
 ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=1.0919062e-07
-x2=1.2018569e-07
+x1=2.7387691e-08
+x2=3.3872849e-08
 divx=5
 subdivx=1
 xlabmag=1.0
@@ -40,8 +40,8 @@ ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=1.0919062e-07
-x2=1.2018569e-07
+x1=2.7387691e-08
+x2=3.3872849e-08
 divx=5
 subdivx=1
 xlabmag=1.0
@@ -61,8 +61,8 @@ ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=1.0919062e-07
-x2=1.2018569e-07
+x1=2.7387691e-08
+x2=3.3872849e-08
 divx=5
 subdivx=1
 xlabmag=1.0
@@ -80,15 +80,15 @@ color="12 11"
 node="i(vvcc)
 i(vrsh)"}
 B 2 2101.25 -762.5 2901.25 -362.5 {flags=graph
-y1=0.088553313
-y2=0.93854032
+y1=0.83680564
+y2=0.85680564
 ypos1=0
 ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=1.0919062e-07
-x2=1.2018569e-07
+x1=2.7387691e-08
+x2=3.3872849e-08
 divx=5
 subdivx=1
 xlabmag=1.0
@@ -102,8 +102,9 @@ logy=0
 hilight_wave=-1
 
 
-color=7
-node=dac_out}
+color="7 12"
+node="dac_out
+dac_out2"}
 N 1110 -180 1150 -180 {
 lab=SH_OUT}
 N 1250 -180 1250 -150 {
@@ -120,6 +121,10 @@ N 2230 -220 2230 -190 {
 lab=#net1}
 N 2130 -220 2330 -220 {
 lab=#net1}
+N 2230 80 2230 110 {
+lab=#net2}
+N 2130 80 2330 80 {
+lab=#net2}
 C {devices/launcher.sym} 1270 -340 0 0 {name=h5
 descr="load waves" 
 tclcommand="xschem raw_read $netlist_dir/testbench.raw tran"
@@ -239,3 +244,31 @@ value=.1p
 footprint=1206
 device="ceramic capacitor"}
 C {devices/lab_pin.sym} 2230 -130 0 0 {name=p39 sig_type=std_logic lab=VSS}
+C {r2r_dac.sym} 1980 160 0 0 {name=x4
+schematic=r2r_dac_parax.sim
+
+spice_sym_def="tcleval(.include [file normalize ../mag/r2r_dac.sim.spice])"
+
+tclcommand="textwindow [file normalize ../mag/r2r_dac.sim.spice]"}
+C {devices/lab_pin.sym} 1830 270 0 0 {name=p38 sig_type=std_logic lab=VSS}
+C {devices/lab_pin.sym} 1830 290 0 0 {name=p40 sig_type=std_logic lab=VSS}
+C {devices/lab_pin.sym} 2390 80 0 1 {name=p41 sig_type=std_logic lab=dac_out2}
+C {devices/lab_pin.sym} 1830 230 0 0 {name=p42 sig_type=std_logic lab=VSS}
+C {devices/lab_pin.sym} 1830 90 0 0 {name=p43 sig_type=std_logic lab=VSS}
+C {devices/lab_pin.sym} 1830 130 0 0 {name=p44 sig_type=std_logic lab=VSS}
+C {devices/lab_pin.sym} 1830 110 0 0 {name=p45 sig_type=std_logic lab=VCC}
+C {devices/lab_pin.sym} 1830 150 0 0 {name=p46 sig_type=std_logic lab=VCC}
+C {devices/lab_pin.sym} 1830 170 0 0 {name=p47 sig_type=std_logic lab=VCC}
+C {devices/lab_pin.sym} 1830 190 0 0 {name=p48 sig_type=std_logic lab=VCC}
+C {devices/lab_pin.sym} 1830 210 0 0 {name=p49 sig_type=std_logic lab=VB1}
+C {devices/res.sym} 2360 80 1 0 {name=R4
+value=5k
+footprint=1206
+device=resistor
+m=1}
+C {devices/capa.sym} 2230 140 0 0 {name=C4
+m=1
+value=.1p
+footprint=1206
+device="ceramic capacitor"}
+C {devices/lab_pin.sym} 2230 170 0 0 {name=p50 sig_type=std_logic lab=VSS}
