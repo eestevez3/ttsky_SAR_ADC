@@ -6,15 +6,15 @@ V {}
 S {}
 E {}
 B 2 1220 -760 2020 -360 {flags=graph
-y1=1.6950309
-y2=1.7568833
+y1=0.72
+y2=0.93
 ypos1=0
 ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=2.7387691e-08
-x2=3.3872849e-08
+x1=1e-12
+x2=2.5e-07
 divx=5
 subdivx=1
 xlabmag=1.0
@@ -40,8 +40,8 @@ ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=2.7387691e-08
-x2=3.3872849e-08
+x1=1e-12
+x2=2.5e-07
 divx=5
 subdivx=1
 xlabmag=1.0
@@ -54,15 +54,15 @@ logx=0
 logy=0
 }
 B 2 2100 -1200 2900 -800 {flags=graph
-y1=-0.029
-y2=-2.4e-05
+y1=-0.0040345643
+y2=0.0012562855
 ypos1=0
 ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=2.7387691e-08
-x2=3.3872849e-08
+x1=1e-12
+x2=2.5e-07
 divx=5
 subdivx=1
 xlabmag=1.0
@@ -80,15 +80,15 @@ color="12 11"
 node="i(vvcc)
 i(vrsh)"}
 B 2 2101.25 -762.5 2901.25 -362.5 {flags=graph
-y1=0.83680564
-y2=0.85680564
+y1=0.840075
+y2=0.864075
 ypos1=0
 ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=2.7387691e-08
-x2=3.3872849e-08
+x1=1e-12
+x2=2.5e-07
 divx=5
 subdivx=1
 xlabmag=1.0
@@ -105,6 +105,65 @@ hilight_wave=-1
 color="7 12"
 node="dac_out
 dac_out2"}
+B 2 2951.25 -1202.5 3751.25 -802.5 {flags=graph
+y1=-0.059
+y2=1.8
+ypos1=0
+ypos2=2
+divy=5
+subdivy=1
+unity=1
+x1=1e-12
+x2=2.5e-07
+divx=5
+subdivx=1
+xlabmag=1.0
+ylabmag=1.0
+
+
+dataset=-1
+unitx=1
+logx=0
+logy=0
+hilight_wave=-1
+
+
+
+color="7 12 8 11"
+node="comp_out
+plus
+minus
+en_n"}
+B 2 2951.25 -762.5 3751.25 -362.5 {flags=graph
+y1=-0.053653821
+y2=1.857376
+ypos1=0
+ypos2=2
+divy=5
+subdivy=1
+unity=1
+x1=1e-12
+x2=2.5e-07
+divx=5
+subdivx=1
+xlabmag=1.0
+ylabmag=1.0
+
+
+dataset=-1
+unitx=1
+logx=0
+logy=0
+hilight_wave=-1
+
+
+
+color="7 12 8 4 10"
+node="test_out
+plus
+minus
+en_n
+cal"}
 N 1110 -180 1150 -180 {
 lab=SH_OUT}
 N 1250 -180 1250 -150 {
@@ -125,7 +184,49 @@ N 2230 80 2230 110 {
 lab=#net2}
 N 2130 80 2330 80 {
 lab=#net2}
-C {devices/launcher.sym} 1270 -340 0 0 {name=h5
+N 1450 380 1450 410 {
+lab=#net3}
+N 1270 380 1470 380 {
+lab=#net3}
+N 1370 670 1370 700 {
+lab=#net4}
+N 1360 670 1390 670 {
+lab=#net4}
+N 1310 670 1360 670 {
+lab=#net4}
+N 1270 670 1310 670 {
+lab=#net4}
+N 2210 510 2210 630 {
+lab=VSS}
+N 2440 510 2440 630 {
+lab=#net5}
+N 2250 510 2320 510 {
+lab=VCC}
+N 2480 510 2550 510 {
+lab=VCC}
+N 2480 630 2550 630 {
+lab=VSS}
+N 2250 630 2320 630 {
+lab=VSS}
+N 2250 660 2250 680 {
+lab=VSS}
+N 2480 660 2480 680 {
+lab=VSS}
+N 2480 460 2480 480 {
+lab=VCC}
+N 2250 460 2250 480 {
+lab=VCC}
+N 2140 570 2210 570 {
+lab=VSS}
+N 2250 540 2250 600 {
+lab=#net5}
+N 2480 540 2480 600 {
+lab=z}
+N 2250 570 2440 570 {
+lab=#net5}
+N 2480 570 2600 570 {
+lab=z}
+C {devices/launcher.sym} 1280 -340 0 0 {name=h5
 descr="load waves" 
 tclcommand="xschem raw_read $netlist_dir/testbench.raw tran"
 }
@@ -272,3 +373,158 @@ value=.1p
 footprint=1206
 device="ceramic capacitor"}
 C {devices/lab_pin.sym} 2230 170 0 0 {name=p50 sig_type=std_logic lab=VSS}
+C {comparator.sym} 840 560 0 0 {name=x5}
+C {Sample_and_Hold.sym} 630 670 0 0 {name=x6
+schematic=Sample_and_Hold_parax.sim
+
+spice_sym_def="tcleval(.include [file normalize ../mag/Sample_and_Hold.sim.spice])"
+
+tclcommand="textwindow [file normalize ../mag/Sample_and_Hold.sim.spice]"}
+C {devices/lab_wire.sym} 700 600 0 0 {name=p51 sig_type=std_logic lab=VCC}
+C {devices/lab_wire.sym} 700 620 0 0 {name=p52 sig_type=std_logic lab=VSS}
+C {devices/res.sym} 1500 380 1 0 {name=R5
+value=5k
+footprint=1206
+device=resistor
+m=1}
+C {devices/capa.sym} 1450 440 0 0 {name=C5
+m=1
+value=.1p
+footprint=1206
+device="ceramic capacitor"}
+C {devices/lab_pin.sym} 1450 470 0 0 {name=p55 sig_type=std_logic lab=VSS}
+C {devices/lab_pin.sym} 1530 380 0 1 {name=p56 sig_type=std_logic lab=COMP_OUT}
+C {devices/lab_wire.sym} 970 430 0 0 {name=p58 sig_type=std_logic lab=VCC}
+C {devices/lab_wire.sym} 970 450 0 0 {name=p59 sig_type=std_logic lab=VSS}
+C {devices/lab_pin.sym} 830 550 0 1 {name=p60 sig_type=std_logic lab=ADJ}
+C {devices/lab_pin.sym} 700 550 0 0 {name=p61 sig_type=std_logic lab=COMP_OUT}
+C {Sample_and_Hold.sym} 630 850 0 0 {name=x7
+schematic=Sample_and_Hold_parax.sim
+
+spice_sym_def="tcleval(.include [file normalize ../mag/Sample_and_Hold.sim.spice])"
+
+tclcommand="textwindow [file normalize ../mag/Sample_and_Hold.sim.spice]"}
+C {devices/lab_wire.sym} 700 780 0 0 {name=p62 sig_type=std_logic lab=VCC}
+C {devices/lab_wire.sym} 700 800 0 0 {name=p63 sig_type=std_logic lab=VSS}
+C {devices/lab_pin.sym} 830 730 0 1 {name=p65 sig_type=std_logic lab=ADJ2}
+C {devices/lab_pin.sym} 700 730 0 0 {name=p66 sig_type=std_logic lab=test_out}
+C {devices/res.sym} 1420 670 1 0 {name=R7
+value=5k
+footprint=1206
+device=resistor
+m=1}
+C {devices/capa.sym} 1370 730 0 0 {name=C7
+m=1
+value=.1p
+footprint=1206
+device="ceramic capacitor"}
+C {devices/lab_pin.sym} 1370 760 0 0 {name=p67 sig_type=std_logic lab=VSS}
+C {devices/lab_pin.sym} 1450 670 0 1 {name=p68 sig_type=std_logic lab=test_out}
+C {devices/lab_pin.sym} 970 490 0 0 {name=p54 sig_type=std_logic lab=ADJ}
+C {comparator.sym} 840 830 0 0 {name=x8}
+C {devices/lab_wire.sym} 970 700 0 0 {name=p69 sig_type=std_logic lab=VCC}
+C {devices/lab_wire.sym} 970 720 0 0 {name=p70 sig_type=std_logic lab=VSS}
+C {devices/lab_pin.sym} 970 760 0 0 {name=p71 sig_type=std_logic lab=ADJ2}
+C {devices/lab_wire.sym} 970 650 0 0 {name=p73 sig_type=std_logic lab=PLUS}
+C {devices/lab_wire.sym} 970 670 0 0 {name=p74 sig_type=std_logic lab=MINUS}
+C {devices/lab_wire.sym} 970 380 0 0 {name=p75 sig_type=std_logic lab=PLUS}
+C {devices/lab_wire.sym} 970 400 0 0 {name=p76 sig_type=std_logic lab=MINUS}
+C {devices/vsource.sym} 140 -80 0 0 {name=VB2 value=0.9 savecurrent=false}
+C {devices/lab_pin.sym} 140 -50 0 0 {name=p77 sig_type=std_logic lab=VSS}
+C {devices/lab_pin.sym} 140 -110 0 0 {name=p78 sig_type=std_logic lab=PLUS}
+C {devices/vsource.sym} 310 -80 0 0 {name=VB3 value="pwl
++0n 0.9
++24.8n 0.9
++25n 0.88
++74.8n 0.88
++75n 0.92
++124.8n 0.92
++125n 0.89
++174.8n 0.89
++175n 0.91
++224.8n 0.91
++225n 0.89"  savecurrent=false}
+C {devices/lab_pin.sym} 310 -50 0 0 {name=p79 sig_type=std_logic lab=VSS}
+C {devices/lab_pin.sym} 310 -110 0 0 {name=p80 sig_type=std_logic lab=MINUS}
+C {devices/vsource.sym} 150 140 0 0 {name=VCLK1 value=
+"pulse(1.8 0 0.2ns 0.2ns 0.2ns 50ns 125ns 20)" 
+savecurrent=false}
+C {devices/lab_pin.sym} 150 170 0 0 {name=p81 sig_type=std_logic lab=VSS}
+C {devices/lab_pin.sym} 150 110 0 0 {name=p82 sig_type=std_logic lab=EN_N}
+C {devices/lab_pin.sym} 970 470 0 0 {name=p53 sig_type=std_logic lab=EN_N}
+C {devices/lab_pin.sym} 700 640 0 0 {name=p57 sig_type=std_logic lab=EN_N}
+C {devices/lab_pin.sym} 700 820 0 0 {name=p64 sig_type=std_logic lab=EN_N}
+C {devices/lab_pin.sym} 970 740 0 0 {name=p72 sig_type=std_logic lab=EN_N}
+C {sky130_fd_pr/nfet_01v8.sym} 2230 630 0 0 {name=M1
+L=0.15
+W=1
+nf=1 
+mult=1
+ad="'int((nf+1)/2) * W/nf * 0.29'" 
+pd="'2*int((nf+1)/2) * (W/nf + 0.29)'"
+as="'int((nf+2)/2) * W/nf * 0.29'" 
+ps="'2*int((nf+2)/2) * (W/nf + 0.29)'"
+nrd="'0.29 / W'" nrs="'0.29 / W'"
+sa=0 sb=0 sd=0
+model=nfet_01v8
+spiceprefix=X
+}
+C {sky130_fd_pr/nfet_01v8.sym} 2460 630 0 0 {name=M2
+L=0.15
+W=1
+nf=1 
+mult=1
+ad="'int((nf+1)/2) * W/nf * 0.29'" 
+pd="'2*int((nf+1)/2) * (W/nf + 0.29)'"
+as="'int((nf+2)/2) * W/nf * 0.29'" 
+ps="'2*int((nf+2)/2) * (W/nf + 0.29)'"
+nrd="'0.29 / W'" nrs="'0.29 / W'"
+sa=0 sb=0 sd=0
+model=nfet_01v8
+spiceprefix=X
+}
+C {sky130_fd_pr/pfet_01v8.sym} 2230 510 0 0 {name=M3
+L=0.15
+W=2
+nf=1
+mult=1
+ad="'int((nf+1)/2) * W/nf * 0.29'" 
+pd="'2*int((nf+1)/2) * (W/nf + 0.29)'"
+as="'int((nf+2)/2) * W/nf * 0.29'" 
+ps="'2*int((nf+2)/2) * (W/nf + 0.29)'"
+nrd="'0.29 / W'" nrs="'0.29 / W'"
+sa=0 sb=0 sd=0
+model=pfet_01v8
+spiceprefix=X
+}
+C {sky130_fd_pr/pfet_01v8.sym} 2460 510 0 0 {name=M4
+L=0.15
+W=2
+nf=1
+mult=1
+ad="'int((nf+1)/2) * W/nf * 0.29'" 
+pd="'2*int((nf+1)/2) * (W/nf + 0.29)'"
+as="'int((nf+2)/2) * W/nf * 0.29'" 
+ps="'2*int((nf+2)/2) * (W/nf + 0.29)'"
+nrd="'0.29 / W'" nrs="'0.29 / W'"
+sa=0 sb=0 sd=0
+model=pfet_01v8
+spiceprefix=X
+}
+C {devices/lab_pin.sym} 2320 510 0 1 {name=p83 sig_type=std_logic lab=VCC}
+C {devices/lab_pin.sym} 2550 510 0 1 {name=p84 sig_type=std_logic lab=VCC}
+C {devices/lab_pin.sym} 2550 630 0 1 {name=p85 sig_type=std_logic lab=VSS}
+C {devices/lab_pin.sym} 2320 630 0 1 {name=p86 sig_type=std_logic lab=VSS}
+C {devices/lab_pin.sym} 2250 680 0 1 {name=p87 sig_type=std_logic lab=VSS}
+C {devices/lab_pin.sym} 2480 680 0 1 {name=p88 sig_type=std_logic lab=VSS}
+C {devices/lab_pin.sym} 2480 460 2 1 {name=p89 sig_type=std_logic lab=VCC}
+C {devices/lab_pin.sym} 2250 460 2 1 {name=p90 sig_type=std_logic lab=VCC}
+C {devices/lab_pin.sym} 2140 570 0 0 {name=p91 sig_type=std_logic lab=VSS}
+C {devices/lab_pin.sym} 2600 570 0 1 {name=p92 sig_type=std_logic lab=z}
+C {devices/vsource.sym} 150 270 0 0 {name=VCLK2 value=
+"pulse(0 1.8 0.2ns 0.2ns 0.2ns 25ns 125ns 20)" 
+savecurrent=false}
+C {devices/lab_pin.sym} 150 300 0 0 {name=p93 sig_type=std_logic lab=VSS}
+C {devices/lab_pin.sym} 150 240 0 0 {name=p94 sig_type=std_logic lab=CAL}
+C {devices/lab_pin.sym} 970 780 0 0 {name=p95 sig_type=std_logic lab=CAL}
+C {devices/lab_pin.sym} 970 510 0 0 {name=p96 sig_type=std_logic lab=CAL}
