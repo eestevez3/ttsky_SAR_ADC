@@ -9,13 +9,13 @@ You can also include images in this folder and reference them in the markdown. E
 
 ## How it works
 
-The goal of the project is to make an 8-bit resolution SAR ADC similar to a group project I didn in college. Currently what's available is the sample and hold circuit which was what I had worked on before during college in the team project.
+The goal of the project is to make an 8-bit resolution SAR ADC similar to a group project I did in college. I have completed the sample and hold circuit, the r2r DAC, and the comparator. The SAR logic has been made but not tested.
 
 I changed the sample and hold circuit to a simple transmission gate plus capacitor for simple layout and simulation. LVS passes and simulation shows a slight delay in rise time for the output.
 
-I added a simple r2r dac. I haven't done extensive testing yet, but current results show at the very least a close approximation to the expected value.
+I added a simple r2r dac. I might try a different design at some point, but only after I'm done with a complete design.
 
-Added a comparator based on a circuit from Stefan Schippers and the SAR logic circuit. Haven't made the symbols for them yet and need to do testing for them in the testbench.
+Added a comparator based on a circuit from Stefan Schippers and the SAR logic circuit. The comparator design has been finalized, and the layout has passed LVS. Will test the parasitics later, but currently it can detect a difference of 2 mV at high speeds and 1 mV slowly.
 
 ## How to test
 
@@ -23,4 +23,4 @@ Added the testbench to simulate. Should just be able to run the testbench, and i
 
 ## External hardware
 
-None currently
+None currently. Will address when design is complete.
