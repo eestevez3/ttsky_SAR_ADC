@@ -27,6 +27,30 @@ module tt_um_eestevez3_SAR_ADC (
 		.SH_OUT(ua[0])
 		.SH_CLK(clk)
 	);
+	
+	comparator comparator(
+		.VCC(VDPWR)
+		.VSS(VGND)
+		.CAL(clk)
+		.EN_N(clk)
+		.PLUS(ua[2])
+		.MINUS(ua[3])
+		.COMP_OUT(ua[4])
+	);
+	
+	r2r_dac r2r_dac(
+		.VSS(VGND)
+		.VSUBS(VGND)
+		.b0(ui_in[0])
+		.b1(ui_in[1])
+		.b2(ui_in[2])
+		.b3(ui_in[3])
+		.b4(ui_in[4])
+		.b5(ui_in[5])
+		.b6(ui_in[6])
+		.b7(ui_in[7])
+		.dac_out([ua[5])
+	);
     
     assign uo_out[0] = VGND;
     assign uo_out[1] = VGND;

@@ -158,10 +158,11 @@ hilight_wave=-1
 
 
 
-color="7 12 8"
+color="7 12 8 4"
 node="test_out
 plus
-minus"}
+minus
+test_out_parax"}
 N 1110 -180 1150 -180 {
 lab=SH_OUT}
 N 1250 -180 1250 -150 {
@@ -226,6 +227,14 @@ N 280 140 280 170 {
 lab=EN_N}
 N 270 -140 270 -110 {
 lab=MINUS}
+N 1370 1070 1370 1100 {
+lab=#net5}
+N 1360 1070 1390 1070 {
+lab=#net5}
+N 1310 1070 1360 1070 {
+lab=#net5}
+N 1270 1070 1310 1070 {
+lab=#net5}
 C {devices/launcher.sym} 1280 -340 0 0 {name=h5
 descr="load waves" 
 tclcommand="xschem raw_read $netlist_dir/testbench.raw tran"
@@ -291,13 +300,13 @@ C {devices/code.sym} 520 -490 0 0 {name=STIMULI only_toplevel=false value="
   write testbench.raw
   reset
   set appendwrite
-  repeat 10
+  *repeat 10
     save all
     tran 0.1n 320n uic
     write testbench.raw
     set appendwrite
     reset
-  end
+  *end
   quit 0
 .endc"}
 C {devices/ammeter.sym} 520 -220 0 0 {name=VrSH savecurrent=true}
@@ -534,3 +543,27 @@ spice_ignore=false}
 C {devices/lab_pin.sym} 270 -50 0 0 {name=p101 lab=0}
 C {devices/lab_pin.sym} 270 -140 0 0 {name=p102 lab=MINUS}
 C {devices/lab_pin.sym} 970 790 0 0 {name=p51 lab=CAL}
+C {devices/res.sym} 1420 1070 1 0 {name=R5
+value=5k
+footprint=1206
+device=resistor
+m=1}
+C {devices/capa.sym} 1370 1130 0 0 {name=C5
+m=1
+value=.1p
+footprint=1206
+device="ceramic capacitor"}
+C {devices/lab_pin.sym} 1370 1160 0 0 {name=p52 sig_type=std_logic lab=VSS}
+C {devices/lab_pin.sym} 1450 1070 0 1 {name=p53 sig_type=std_logic lab=test_out_parax}
+C {comparator.sym} 840 1260 0 0 {name=x5
+schematic=comparator_parax.sim
+
+spice_sym_def="tcleval(.include [file normalize ../mag/comparator.sim.spice])"
+
+tclcommand="textwindow [file normalize ../mag/comparator.sim.spice]"}
+C {devices/lab_wire.sym} 1110 990 0 0 {name=p54 sig_type=std_logic lab=VCC}
+C {devices/lab_wire.sym} 1110 1150 2 1 {name=p55 sig_type=std_logic lab=VSS}
+C {devices/lab_wire.sym} 970 1000 0 0 {name=p56 sig_type=std_logic lab=PLUS}
+C {devices/lab_wire.sym} 970 1150 0 0 {name=p57 sig_type=std_logic lab=MINUS}
+C {devices/lab_pin.sym} 970 1200 0 0 {name=p58 sig_type=std_logic lab=EN_N}
+C {devices/lab_pin.sym} 970 1220 0 0 {name=p59 lab=CAL}

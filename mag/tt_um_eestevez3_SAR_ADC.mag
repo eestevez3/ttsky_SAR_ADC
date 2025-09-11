@@ -1,7 +1,7 @@
 magic
 tech sky130A
 magscale 1 2
-timestamp 1756903026
+timestamp 1757595141
 << metal1 >>
 rect 25179 2815 25185 3015
 rect 25385 2815 26864 3015
@@ -179,6 +179,10 @@ rect 29229 550 29429 826
 rect 30362 550 30542 558
 rect 29229 370 30542 550
 rect 30362 0 30542 370
+use comparator  comparator_0
+timestamp 1757527180
+transform 1 0 13997 0 1 16505
+box 5945 -7489 14005 -1329
 use r2r_dac  r2r_dac_0
 timestamp 1755981703
 transform 1 0 5478 0 1 9254

@@ -15,7 +15,7 @@ I changed the sample and hold circuit to a simple transmission gate plus capacit
 
 I added a simple r2r dac. I might try a different design at some point, but only after I'm done with a complete design.
 
-Added a comparator based on a circuit from Stefan Schippers and the SAR logic circuit. The comparator design has been finalized, and the layout has passed LVS. Will test the parasitics later, but currently it can detect a difference of 2 mV at high speeds and 1 mV slowly.
+Added a comparator based on a circuit from Stefan Schippers and the SAR logic circuit. The comparator design has been finalized, and the layout has passed LVS. Tested the parasitic layout and only saw a small noticeable difference in the rise time.
 
 ## How to test
 
