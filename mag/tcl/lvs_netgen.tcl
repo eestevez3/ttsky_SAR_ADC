@@ -6,9 +6,11 @@ readnet spice $::env(PDK_ROOT)/$::env(PDK)/libs.ref/sky130_fd_sc_hd/spice/sky130
 readnet verilog ../src/project.v $source
 
 # add an GL verilog of any digital blocks:
-# readnet verilog ../verilog/gl/your_design.v $source
+readnet verilog ../verilog/gl/sar_control.v $source
 
 # add any spice files of your analog blocks:
 readnet spice ../xschem/simulation/comparator.spice $source
+readnet spice ../xschem/simulation/r2r_dac.spice $source
+readnet spice ../xschem/simulation/Sample_and_Hold.spice $source
 
 lvs "$layout $project" "$source $project" $::env(PDK_ROOT)/sky130A/libs.tech/netgen/sky130A_setup.tcl lvs.report -blackbox

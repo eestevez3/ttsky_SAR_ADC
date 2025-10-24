@@ -1,0 +1,81 @@
+** sch_path: /home/ttuser/ttsky_SAR_ADC/xschem/sar.sch
+.lib /home/ttuser/pdk/sky130A/libs.tech/ngspice/sky130.lib.spice tt
+.include /home/ttuser/pdk/sky130A/libs.ref/sky130_fd_sc_hd/spice/sky130_fd_sc_hd.spice
+
+**.subckt sar b7 b6 b5 b4 b3 b2 b1 b0 comp_in clk_in reset_in VCC VSS
+*.opin b7
+*.opin b6
+*.opin b5
+*.opin b4
+*.opin b3
+*.opin b2
+*.opin b1
+*.opin b0
+*.ipin comp_in
+*.ipin clk_in
+*.ipin reset_in
+*.ipin VCC
+*.ipin VSS
+V4 VCC GND 1.8
+V7 VSS GND 0
+x2 c9 VSS VCC reset_in VSS VSS VCC VCC net1 q_n9 sky130_fd_sc_hd__dfbbp_1
+x3 net1 VSS VSS VCC VCC net2 sky130_fd_sc_hd__buf_1
+x4 c8 net2 reset_in VCC VSS VSS VCC VCC net3 q_n8 sky130_fd_sc_hd__dfbbp_1
+x6 c7 net4 reset_in VCC VSS VSS VCC VCC net5 q_n7 sky130_fd_sc_hd__dfbbp_1
+x8 c6 net6 reset_in VCC VSS VSS VCC VCC net7 q_n6 sky130_fd_sc_hd__dfbbp_1
+x10 c5 net8 reset_in VCC VSS VSS VCC VCC net9 q_n5 sky130_fd_sc_hd__dfbbp_1
+x12 c4 net10 reset_in VCC VSS VSS VCC VCC net11 q_n4 sky130_fd_sc_hd__dfbbp_1
+x14 c3 net12 reset_in VCC VSS VSS VCC VCC net13 q_n3 sky130_fd_sc_hd__dfbbp_1
+x16 c2 net14 reset_in VCC VSS VSS VCC VCC net15 q_n2 sky130_fd_sc_hd__dfbbp_1
+x18 c1 net16 reset_in VCC VSS VSS VCC VCC net18 q_n1 sky130_fd_sc_hd__dfbbp_1
+x19 VSS VSS reset_in q_n1 VSS VSS VCC VCC net17 net19 sky130_fd_sc_hd__dfbbp_1
+x28 c8 VSS VSS VCC VCC c9 sky130_fd_sc_hd__buf_1
+x29 net17 comp_in reset_in q_n2 VSS VSS VCC VCC b7 net20 sky130_fd_sc_hd__dfbbp_1
+x30 b7 comp_in reset_in q_n3 VSS VSS VCC VCC b6 net21 sky130_fd_sc_hd__dfbbp_1
+x31 b6 comp_in reset_in q_n4 VSS VSS VCC VCC b5 net22 sky130_fd_sc_hd__dfbbp_1
+x32 b5 comp_in reset_in q_n5 VSS VSS VCC VCC b4 net23 sky130_fd_sc_hd__dfbbp_1
+x33 b4 comp_in reset_in q_n6 VSS VSS VCC VCC b3 net24 sky130_fd_sc_hd__dfbbp_1
+x34 b3 comp_in reset_in q_n7 VSS VSS VCC VCC b2 net25 sky130_fd_sc_hd__dfbbp_1
+x35 b2 comp_in reset_in q_n8 VSS VSS VCC VCC b1 net26 sky130_fd_sc_hd__dfbbp_1
+x36 b1 comp_in reset_in q_n9 VSS VSS VCC VCC b0 net27 sky130_fd_sc_hd__dfbbp_1
+VCLK clk_in GND pulse(0 1.8 0.2n 0.2ns 0.2ns 250ns 500ns 500)
+VRES reset_in GND pulse(1.8 0 0.2n 0.2ns 0.2ns 500ns 5us 500)
+VCOMP comp_in GND pulse(0 1.8 0.2n 0.2ns 0.2ns 1.5us 3us 500)
+x1 net3 VSS VSS VCC VCC net4 sky130_fd_sc_hd__buf_1
+x5 net5 VSS VSS VCC VCC net6 sky130_fd_sc_hd__buf_1
+x7 net7 VSS VSS VCC VCC net8 sky130_fd_sc_hd__buf_1
+x9 net9 VSS VSS VCC VCC net10 sky130_fd_sc_hd__buf_1
+x11 net11 VSS VSS VCC VCC net12 sky130_fd_sc_hd__buf_1
+x13 net13 VSS VSS VCC VCC net14 sky130_fd_sc_hd__buf_1
+x15 net15 VSS VSS VCC VCC net16 sky130_fd_sc_hd__buf_1
+x17 clk_in VSS VSS VCC VCC c1 sky130_fd_sc_hd__buf_1
+x20 c1 VSS VSS VCC VCC c2 sky130_fd_sc_hd__buf_1
+x21 c2 VSS VSS VCC VCC c3 sky130_fd_sc_hd__buf_1
+x22 c3 VSS VSS VCC VCC c4 sky130_fd_sc_hd__buf_1
+x23 c4 VSS VSS VCC VCC c5 sky130_fd_sc_hd__buf_1
+x24 c5 VSS VSS VCC VCC c6 sky130_fd_sc_hd__buf_1
+x25 c6 VSS VSS VCC VCC c7 sky130_fd_sc_hd__buf_1
+x26 c7 VSS VSS VCC VCC c8 sky130_fd_sc_hd__buf_1
+**** begin user architecture code
+
+
+.options acct list
+.temp 25
+.control
+  save all
+  savecurrents
+  op
+  write sar.raw
+  reset
+  set appendwrite
+  save all
+  tran 0.1n 12u uic
+  write sar.raw
+  reset
+  quit 0
+.endc
+
+**** end user architecture code
+**.ends
+.GLOBAL GND
+.end
