@@ -1,4 +1,4 @@
-Simulation of an R2R DAC with Verilator and d_cosim
+Simulation of an SAR ADC with Verilator and d_cosim
 
 .lib /home/ttuser/pdk/sky130A/libs.tech/ngspice/sky130.lib.spice tt
 
@@ -13,13 +13,14 @@ adut [ clk reset_in comp_in ] [b7 b6 b5 b4 b3 b2 b1 b0 result7 result6 result5 r
 .include "../xschem/simulation/r2r_dac.spice"
 .include "../xschem/simulation/Sample_and_Hold.spice"
 .include "../xschem/simulation/comparator.spice" 
-*.include "../mag/r2r.spice" 
 
-xr2r b0 b1 b2 b3 b4 b5 b6 b7 out 0 0 r2r
+xr2r_dac 0 0 b0 b1 b2 b3 b4 b5 b6 b7 dac_out r2r_dac
+xcomparator vcc 0 cal en_n sh_out dac_out comp_in comparator
+xSample_and_Hold vcc 0 sh_in sh_out clk Sample_and_Hold
 
 * simulate tt output path
-R1 out pin_out 500
-C1 out 0 5p
+R1 valid pin_out 500
+C1 valid 0 5p
 
 
 
@@ -35,7 +36,13 @@ aclock 0 clk clock
 
 * reset signal
 
-Vreset n_rst 0 PULSE 3 0 1n 20p 20p 1u 500u
+Vreset reset_in 0 PULSE 3 0 1n 20p 20p 1u 500u
+
+* input signals
+
+Vvin sh_in 0 sin(1.3 0.5 1MEG)
+Vcal cal 0 pwl 0 0 29.9n 0 30.1n 1.8 109.9n 1.8 110.1n 0
+Ven en_n 0 pwl 0 0 29.9n 0 30.1n 1.8 149.9n 1.8 150.1n 0
 
 .control
 tran 100n 400u
