@@ -43,14 +43,14 @@ module tt_um_eestevez3_SAR_ADC (
 	r2r_dac r2r_dac(
 		.VSS(VGND)
 		.VSUBS(VGND)
-		.b0(sar_out[0])
-		.b1(sar_out[1])
-		.b2(sar_out[2])
-		.b3(sar_out[3])
-		.b4(sar_out[4])
-		.b5(sar_out[5])
-		.b6(sar_out[6])
-		.b7(sar_out[7])
+		.b0(sar_out[7])
+		.b1(sar_out[6])
+		.b2(sar_out[5])
+		.b3(sar_out[4])
+		.b4(sar_out[3])
+		.b5(sar_out[2])
+		.b6(sar_out[1])
+		.b7(sar_out[0])
 		.dac_out(dac_out)
 	);
 	

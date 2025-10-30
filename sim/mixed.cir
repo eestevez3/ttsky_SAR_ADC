@@ -14,9 +14,9 @@ adut [ clk reset_in comp_in ] [b7 b6 b5 b4 b3 b2 b1 b0 result7 result6 result5 r
 .include "../xschem/simulation/Sample_and_Hold.spice"
 .include "../xschem/simulation/comparator.spice" 
 
-xr2r_dac 0 0 b0 b1 b2 b3 b4 b5 b6 b7 dac_out r2r_dac
-xcomparator vcc 0 cal en_n sh_out dac_out comp_in comparator
-xSample_and_Hold vcc 0 sh_in sh_out clk Sample_and_Hold
+xr2r_dac 0 0 b7 b6 b5 b4 b3 b2 b1 b0 dac_out r2r_dac
+xcomparator en_n sh_out dac_out cal comp_in vcc 0 comparator
+xSample_and_Hold sh_out sh_in 0 vcc sh_clk Sample_and_Hold
 
 * simulate tt output path
 R1 valid pin_out 500
@@ -36,16 +36,20 @@ aclock 0 clk clock
 
 * reset signal
 
-Vreset reset_in 0 PULSE 3 0 1n 20p 20p 1u 500u
+Vreset reset_in 0 PULSE 1.8 0 1n 20p 20p 1u 100u 
 
 * input signals
 
-Vvin sh_in 0 sin(1.3 0.5 1MEG)
+Vvin sh_in 0 sin(1.3 0.5 4000)
 Vcal cal 0 pwl 0 0 29.9n 0 30.1n 1.8 109.9n 1.8 110.1n 0
 Ven en_n 0 pwl 0 0 29.9n 0 30.1n 1.8 149.9n 1.8 150.1n 0
+Vclk sh_clk 0 pulse (0 1.8 0.02n 0.02n 0.02n 400n 100u 8)
 
 .control
+save sh_in sh_out dac_out sh_clk reset_in
 tran 100n 400u
-plot pin_out
+plot dac_out sh_out
+plot comp_in
+plot sh_in sh_out
 .endc
 .end
