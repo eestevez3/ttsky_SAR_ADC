@@ -18,7 +18,7 @@ VL_ATTR_COLD void Vlng___024root___eval_initial__TOP(Vlng___024root* vlSelf) {
     __Vtemp_1[2U] = 0x5f636f6eU;
     __Vtemp_1[3U] = 0x736172U;
     vlSymsp->_vm_contextp__->dumpfile(VL_CVT_PACK_STR_NW(4, __Vtemp_1));
-    VL_PRINTF_MT("-Info: ../verilog/rtl/sar_control.v:18: $dumpvar ignored, as Verilated without --trace\n");
+    VL_PRINTF_MT("-Info: ../verilog/rtl/sar_control.v:17: $dumpvar ignored, as Verilated without --trace\n");
 }
 
 #ifdef VL_DEBUG

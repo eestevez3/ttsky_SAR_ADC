@@ -1,17 +1,16 @@
 `default_nettype none
 module sar_control (
-    input wire clk,                 // expect a 5M clock
-    input wire reset_in,
-    input wire comp_in,             
-    output reg [7:0] sar_out,		// 8 bit out to the R2R DAC
-    output reg [7:0] result,
-    output reg valid 
+    output wire	[7:0] dac,
+    input wire	cmp,
+    output reg	[7:0] regv,
+    output reg	rv_stb,
+    input wire	clk,
+    input wire	rst
     );
 
-    reg [7:0] first;
-    reg [7:0] last;
-    
-    wire [7:0] mid = first + ((last-first) >> 1);
+    reg [7:0] cur;
+    reg [7:0] val;
+    reg [7:0] val_nxt;
 
     initial begin
         $dumpfile ("sar_control.vcd");
@@ -19,35 +18,31 @@ module sar_control (
     end
 
 
-    always @(posedge clk or negedge reset_in) begin
-        if(!reset_in) begin
-            sar_out <= {8{1'b0}};
-            first <= {8{1'b0}};
-            last <= {8{1'b1}};
-            valid <= 1'b0;
-            result <= {8{1'b0}};
+    always @(posedge clk)
+        if(rst) begin
+        	cur <= 8'h80;
+            	val <= 8'h00;
+    	end else begin
+    		// Rotate cur
+    		cur <= {cur[0], cur[7:1]};
+    		
+    		// Keep solved bits
+    		if (cur[0])
+    			val <= 8'h00;
+    		else
+    			val <= val_nxt;
+    			
+    		// Latch final result
+    		if (cur[0])
+    			regv <= val_nxt;
+    			
+    		rv_stb <= cur[0];
     	end
-    	else begin
-    		case(comp_in)
-    			1'b0:
-    				begin
-    					valid <= 1'b0;
-    					last <= sar_out;
-    					sar_out <= mid;
-    				end
-    			1'b1:
-    				begin
-    					valid <= 1'b0;
-    					first <= sar_out;
-    					sar_out <= mid;
-    				end
-    			default:
-    				begin
-    					valid <= 1'b1;
-    					result <= sar_out;
-    				end
-    		endcase
-    	end
-    end
+    	
+    	// Next value for solved bits
+    	assign val_nxt = val | (cmp ? cur : 8'h00);
+    	
+	// Output in DAC the solved bits + Trial bit
+    	assign dac = val | cur;
     
 endmodule

@@ -55,14 +55,16 @@ module tt_um_eestevez3_SAR_ADC (
 	);
 	
 	sar_control sar_control(
-		.clk(clk)
+		.clk(ui_in[2])
+		.go(uio_out[1])
 		.reset_in(rst_n)
-		.comp_in(comp_out)
-		.result[0](uo_out[4])
+		.comp_in[0](comp_out)
+		.comp_in[1](comp_out)
+		.result[0](uo_out[0])
 		.result[1](uo_out[1])
 		.result[2](uo_out[2])
 		.result[3](uo_out[3])
-		.result[4](uo_out[0])
+		.result[4](uo_out[4])
 		.result[5](uo_out[5])
 		.result[6](uo_out[6])
 		.result[7](uo_out[7])
@@ -75,12 +77,11 @@ module tt_um_eestevez3_SAR_ADC (
 		.sar_out[6](sar_out[6])
 		.sar_out[7](sar_out[7])
 		.valid(uio_out[0])
+		.sample(uio_out[2])
 		.VPWR(VDPWR)
 		.VGND(VGND)
 	);
-
-    assign uio_out[1] = VGND;
-    assign uio_out[2] = VGND;
+	
     assign uio_out[3] = VGND;
     assign uio_out[4] = VGND;
     assign uio_out[5] = VGND;

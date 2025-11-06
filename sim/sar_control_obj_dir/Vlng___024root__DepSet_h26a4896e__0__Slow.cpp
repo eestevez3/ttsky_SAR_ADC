@@ -20,7 +20,6 @@ VL_ATTR_COLD void Vlng___024root___eval_initial(Vlng___024root* vlSelf) {
     // Body
     Vlng___024root___eval_initial__TOP(vlSelf);
     vlSelf->__Vtrigprevexpr___TOP__clk__0 = vlSelf->clk;
-    vlSelf->__Vtrigprevexpr___TOP__reset_in__0 = vlSelf->reset_in;
 }
 
 VL_ATTR_COLD void Vlng___024root___eval_final(Vlng___024root* vlSelf) {
@@ -93,11 +92,12 @@ VL_ATTR_COLD void Vlng___024root___stl_sequent__TOP__0(Vlng___024root* vlSelf) {
     Vlng__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vlng___024root___stl_sequent__TOP__0\n"); );
     // Body
-    vlSelf->sar_control__DOT__mid = (0xffU & ((IData)(vlSelf->sar_control__DOT__first) 
-                                              + VL_SHIFTR_III(8,8,32, 
-                                                              (0xffU 
-                                                               & ((IData)(vlSelf->sar_control__DOT__last) 
-                                                                  - (IData)(vlSelf->sar_control__DOT__first))), 1U)));
+    vlSelf->dac = ((IData)(vlSelf->sar_control__DOT__cur) 
+                   | (IData)(vlSelf->sar_control__DOT__val));
+    vlSelf->sar_control__DOT__val_nxt = ((IData)(vlSelf->sar_control__DOT__val) 
+                                         | ((IData)(vlSelf->cmp)
+                                             ? (IData)(vlSelf->sar_control__DOT__cur)
+                                             : 0U));
 }
 
 VL_ATTR_COLD void Vlng___024root___eval_triggers__stl(Vlng___024root* vlSelf);
@@ -118,6 +118,21 @@ VL_ATTR_COLD bool Vlng___024root___eval_phase__stl(Vlng___024root* vlSelf) {
 }
 
 #ifdef VL_DEBUG
+VL_ATTR_COLD void Vlng___024root___dump_triggers__ico(Vlng___024root* vlSelf) {
+    (void)vlSelf;  // Prevent unused variable warning
+    Vlng__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vlng___024root___dump_triggers__ico\n"); );
+    // Body
+    if ((1U & (~ vlSelf->__VicoTriggered.any()))) {
+        VL_DBG_MSGF("         No triggers active\n");
+    }
+    if ((1ULL & vlSelf->__VicoTriggered.word(0U))) {
+        VL_DBG_MSGF("         'ico' region trigger index 0 is active: Internal 'ico' trigger - first iteration\n");
+    }
+}
+#endif  // VL_DEBUG
+
+#ifdef VL_DEBUG
 VL_ATTR_COLD void Vlng___024root___dump_triggers__act(Vlng___024root* vlSelf) {
     (void)vlSelf;  // Prevent unused variable warning
     Vlng__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
@@ -127,7 +142,7 @@ VL_ATTR_COLD void Vlng___024root___dump_triggers__act(Vlng___024root* vlSelf) {
         VL_DBG_MSGF("         No triggers active\n");
     }
     if ((1ULL & vlSelf->__VactTriggered.word(0U))) {
-        VL_DBG_MSGF("         'act' region trigger index 0 is active: @(posedge clk or negedge reset_in)\n");
+        VL_DBG_MSGF("         'act' region trigger index 0 is active: @(posedge clk)\n");
     }
 }
 #endif  // VL_DEBUG
@@ -142,7 +157,7 @@ VL_ATTR_COLD void Vlng___024root___dump_triggers__nba(Vlng___024root* vlSelf) {
         VL_DBG_MSGF("         No triggers active\n");
     }
     if ((1ULL & vlSelf->__VnbaTriggered.word(0U))) {
-        VL_DBG_MSGF("         'nba' region trigger index 0 is active: @(posedge clk or negedge reset_in)\n");
+        VL_DBG_MSGF("         'nba' region trigger index 0 is active: @(posedge clk)\n");
     }
 }
 #endif  // VL_DEBUG
@@ -152,15 +167,14 @@ VL_ATTR_COLD void Vlng___024root___ctor_var_reset(Vlng___024root* vlSelf) {
     Vlng__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vlng___024root___ctor_var_reset\n"); );
     // Body
+    vlSelf->dac = VL_RAND_RESET_I(8);
+    vlSelf->cmp = VL_RAND_RESET_I(1);
+    vlSelf->regv = VL_RAND_RESET_I(8);
+    vlSelf->rv_stb = VL_RAND_RESET_I(1);
     vlSelf->clk = VL_RAND_RESET_I(1);
-    vlSelf->reset_in = VL_RAND_RESET_I(1);
-    vlSelf->comp_in = VL_RAND_RESET_I(1);
-    vlSelf->sar_out = VL_RAND_RESET_I(8);
-    vlSelf->result = VL_RAND_RESET_I(8);
-    vlSelf->valid = VL_RAND_RESET_I(1);
-    vlSelf->sar_control__DOT__first = VL_RAND_RESET_I(8);
-    vlSelf->sar_control__DOT__last = VL_RAND_RESET_I(8);
-    vlSelf->sar_control__DOT__mid = VL_RAND_RESET_I(8);
+    vlSelf->rst = VL_RAND_RESET_I(1);
+    vlSelf->sar_control__DOT__cur = VL_RAND_RESET_I(8);
+    vlSelf->sar_control__DOT__val = VL_RAND_RESET_I(8);
+    vlSelf->sar_control__DOT__val_nxt = VL_RAND_RESET_I(8);
     vlSelf->__Vtrigprevexpr___TOP__clk__0 = VL_RAND_RESET_I(1);
-    vlSelf->__Vtrigprevexpr___TOP__reset_in__0 = VL_RAND_RESET_I(1);
 }

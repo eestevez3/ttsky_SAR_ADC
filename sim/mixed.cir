@@ -6,7 +6,7 @@ Simulation of an SAR ADC with Verilator and d_cosim
 
 * The digital portion of the circuit is specified in compiled Verilog.
 * list the inputs and outputs
-adut [ clk reset_in comp_in ] [b7 b6 b5 b4 b3 b2 b1 b0 result7 result6 result5 result4 result3 result2 result1 result0 valid] null dut
+adut [ go clk reset_in comp_in comp_in ] [b7 b6 b5 b4 b3 b2 b1 b0 result7 result6 result5 result4 result3 result2 result1 result0 valid sample] null dut
 .model dut d_cosim simulation="./sar_control.so"
 
 
@@ -44,12 +44,12 @@ Vvin sh_in 0 sin(1.3 0.5 4000)
 Vcal cal 0 pwl 0 0 29.9n 0 30.1n 1.8 109.9n 1.8 110.1n 0
 Ven en_n 0 pwl 0 0 29.9n 0 30.1n 1.8 149.9n 1.8 150.1n 0
 Vclk sh_clk 0 pulse (0 1.8 0.02n 0.02n 0.02n 400n 100u 8)
+Vgo go 0 PULSE 0 1.8 1n 20p 20p 1u 100u 
 
 .control
 save sh_in sh_out dac_out sh_clk reset_in
 tran 100n 400u
 plot dac_out sh_out
 plot comp_in
-plot sh_in sh_out
 .endc
 .end

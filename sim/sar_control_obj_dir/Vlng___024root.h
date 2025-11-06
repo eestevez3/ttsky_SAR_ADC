@@ -15,20 +15,21 @@ class alignas(VL_CACHE_LINE_BYTES) Vlng___024root final : public VerilatedModule
 
     // DESIGN SPECIFIC STATE
     VL_IN8(clk,0,0);
-    VL_IN8(reset_in,0,0);
-    VL_IN8(comp_in,0,0);
-    VL_OUT8(sar_out,7,0);
-    VL_OUT8(result,7,0);
-    VL_OUT8(valid,0,0);
-    CData/*7:0*/ sar_control__DOT__first;
-    CData/*7:0*/ sar_control__DOT__last;
-    CData/*7:0*/ sar_control__DOT__mid;
+    VL_OUT8(dac,7,0);
+    VL_IN8(cmp,0,0);
+    VL_OUT8(regv,7,0);
+    VL_OUT8(rv_stb,0,0);
+    VL_IN8(rst,0,0);
+    CData/*7:0*/ sar_control__DOT__cur;
+    CData/*7:0*/ sar_control__DOT__val;
+    CData/*7:0*/ sar_control__DOT__val_nxt;
     CData/*0:0*/ __VstlFirstIteration;
+    CData/*0:0*/ __VicoFirstIteration;
     CData/*0:0*/ __Vtrigprevexpr___TOP__clk__0;
-    CData/*0:0*/ __Vtrigprevexpr___TOP__reset_in__0;
     CData/*0:0*/ __VactContinue;
     IData/*31:0*/ __VactIterCount;
     VlTriggerVec<1> __VstlTriggered;
+    VlTriggerVec<1> __VicoTriggered;
     VlTriggerVec<1> __VactTriggered;
     VlTriggerVec<1> __VnbaTriggered;
 

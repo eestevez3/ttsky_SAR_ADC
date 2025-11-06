@@ -9,18 +9,16 @@ You can also include images in this folder and reference them in the markdown. E
 
 ## How it works
 
-The goal of the project is to make an 8-bit resolution SAR ADC similar to a group project I did in college. I have completed the sample and hold circuit, the r2r DAC, and the comparator. The SAR logic has been made but not tested.
+The goal of the project is to make an 8-bit resolution SAR ADC similar to a group project I did in college.
 
-I changed the sample and hold circuit to a simple transmission gate plus capacitor for simple layout and simulation. LVS passes and simulation shows a slight delay in rise time for the output.
+The design currently does not have full rail-to-rail detection without precise timing. If I can make a good feedback system for the comparator to not rely on timing restrictions, I will update the design.
 
-I added a simple r2r dac. I might try a different design at some point, but only after I'm done with a complete design.
-
-Added a comparator based on a circuit from Stefan Schippers and the SAR logic circuit. The comparator design has been finalized, and the layout has passed LVS. Tested the parasitic layout and only saw a small noticeable difference in the rise time.
+Without any requirements for recalibration, the circuit detects and outputs voltages accurately for the system in the range of 0.8V to VCC. The sampling circuit will hold the analog input value for approximately 10 sar logic clock cycles. After those cycles, the logic combined with the R2R DAC will output a signal close to the sampled signal.
 
 ## How to test
 
-Added the testbench to simulate. Should just be able to run the testbench, and it should save locally.
+Input an analog signal to the analog input pin. Because I currently don't have a clock divider, there will need to be two clock signals, one in the sar logic clock input, and another that's 10 times as slow to the clock pin. The enable signal and calibration signal can be used to tune the comparator for low input signals, but I currently do not have a good enough feedback system to track it accurately. Currently they are just used to reset the comparator signal levels.
 
 ## External hardware
 
-None currently. Will address when design is complete.
+Signal generator, oscilloscope

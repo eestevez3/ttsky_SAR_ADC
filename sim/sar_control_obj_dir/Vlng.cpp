@@ -10,11 +10,11 @@ Vlng::Vlng(VerilatedContext* _vcontextp__, const char* _vcname__)
     : VerilatedModel{*_vcontextp__}
     , vlSymsp{new Vlng__Syms(contextp(), _vcname__, this)}
     , clk{vlSymsp->TOP.clk}
-    , reset_in{vlSymsp->TOP.reset_in}
-    , comp_in{vlSymsp->TOP.comp_in}
-    , sar_out{vlSymsp->TOP.sar_out}
-    , result{vlSymsp->TOP.result}
-    , valid{vlSymsp->TOP.valid}
+    , dac{vlSymsp->TOP.dac}
+    , cmp{vlSymsp->TOP.cmp}
+    , regv{vlSymsp->TOP.regv}
+    , rv_stb{vlSymsp->TOP.rv_stb}
+    , rst{vlSymsp->TOP.rst}
     , rootp{&(vlSymsp->TOP)}
 {
     // Register model with the context

@@ -1,17 +1,17 @@
 # Tiny Tapeout project information
 project:
-  title:        ""      # Project title
-  author:       ""      # Your name
-  discord:      ""      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
-  description:  ""      # One line description of what your project does
+  title:        "tt_um_eestevez3_SAR_ADC"      # Project title
+  author:       "Eric Estevez"      # Your name
+  discord:      "Cirex145"      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
+  description:  "Convert analog signal to digital"      # One line description of what your project does
   language:     "Analog" # other examples include Verilog, Amaranth, VHDL, etc
-  clock_hz:     0       # Clock frequency in Hz (or 0 if not applicable)
+  clock_hz:     1M, 100K       # Clock frequency in Hz (or 0 if not applicable)
 
   # How many tiles your design occupies? A single tile is about 167x108 uM.
   tiles: "1x2"          # Valid values for analog projects: 1x2, 2x2
 
   # How many analog pins does your project use?
-  analog_pins: 2        # Valid values: 0 to 6
+  analog_pins: 1        # Valid values: 0 to 6
   uses_3v3: false       # Set to true if your project uses 3.3V (VAPWR) in addition to 1.8V (VDPWR)
 
   # Your top module name must start with "tt_um_". Make it unique by including your github username:
@@ -25,9 +25,9 @@ project:
 # This section is for the datasheet/website. Use descriptive names (e.g., RX, TX, MOSI, SCL, SEG_A, etc.).
 pinout:
   # Inputs
-  ui[0]: ""
-  ui[1]: ""
-  ui[2]: ""
+  ui[0]: "comparator enable"
+  ui[1]: "comparator calibration"
+  ui[2]: "sar logic clock"
   ui[3]: ""
   ui[4]: ""
   ui[5]: ""
@@ -35,17 +35,17 @@ pinout:
   ui[7]: ""
 
   # Outputs
-  uo[0]: ""
-  uo[1]: ""
-  uo[2]: ""
-  uo[3]: ""
-  uo[4]: ""
-  uo[5]: ""
-  uo[6]: ""
-  uo[7]: ""
+  uo[0]: "sar bit 0"
+  uo[1]: "sar bit 1"
+  uo[2]: "sar bit 2"
+  uo[3]: "sar bit 3"
+  uo[4]: "sar bit 4"
+  uo[5]: "sar bit 5"
+  uo[6]: "sar bit 6"
+  uo[7]: "sar bit 7"
 
   # Bidirectional pins
-  uio[0]: ""
+  uio[0]: "valid"
   uio[1]: ""
   uio[2]: ""
   uio[3]: ""
@@ -55,7 +55,7 @@ pinout:
   uio[7]: ""
 
   # Analog pins - make sure to also set "analog_pins" above, else the pins won't be connected
-  ua[0]: ""
+  ua[0]: "sample in"
   ua[1]: ""
   ua[2]: ""
   ua[3]: ""
