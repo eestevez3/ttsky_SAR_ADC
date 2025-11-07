@@ -1,0 +1,6 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1762521564" />
+    <testcase name="test" classname="test" file="/home/ttuser/ttsky_SAR_ADC/verilog/test/test.py" lineno="21" time="0.040000200271606445" sim_time_ns="6310000.001" ratio_time="157749210.2078064" />
+  </testsuite>
+</testsuites>

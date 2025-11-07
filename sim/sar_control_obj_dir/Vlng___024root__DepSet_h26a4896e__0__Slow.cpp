@@ -167,12 +167,12 @@ VL_ATTR_COLD void Vlng___024root___ctor_var_reset(Vlng___024root* vlSelf) {
     Vlng__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vlng___024root___ctor_var_reset\n"); );
     // Body
-    vlSelf->dac = VL_RAND_RESET_I(8);
     vlSelf->cmp = VL_RAND_RESET_I(1);
-    vlSelf->regv = VL_RAND_RESET_I(8);
-    vlSelf->rv_stb = VL_RAND_RESET_I(1);
     vlSelf->clk = VL_RAND_RESET_I(1);
     vlSelf->rst = VL_RAND_RESET_I(1);
+    vlSelf->dac = VL_RAND_RESET_I(8);
+    vlSelf->regv = VL_RAND_RESET_I(8);
+    vlSelf->rv_stb = VL_RAND_RESET_I(1);
     vlSelf->sar_control__DOT__cur = VL_RAND_RESET_I(8);
     vlSelf->sar_control__DOT__val = VL_RAND_RESET_I(8);
     vlSelf->sar_control__DOT__val_nxt = VL_RAND_RESET_I(8);

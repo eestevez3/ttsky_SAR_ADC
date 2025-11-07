@@ -1,11 +1,11 @@
 `default_nettype none
 module sar_control (
-    output wire	[7:0] dac,
     input wire	cmp,
-    output reg	[7:0] regv,
-    output reg	rv_stb,
     input wire	clk,
-    input wire	rst
+    input wire	rst,
+    output wire	[7:0] dac,
+    output reg	[7:0] regv,
+    output reg	rv_stb
     );
 
     reg [7:0] cur;

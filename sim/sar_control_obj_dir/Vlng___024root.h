@@ -15,11 +15,11 @@ class alignas(VL_CACHE_LINE_BYTES) Vlng___024root final : public VerilatedModule
 
     // DESIGN SPECIFIC STATE
     VL_IN8(clk,0,0);
-    VL_OUT8(dac,7,0);
     VL_IN8(cmp,0,0);
+    VL_IN8(rst,0,0);
+    VL_OUT8(dac,7,0);
     VL_OUT8(regv,7,0);
     VL_OUT8(rv_stb,0,0);
-    VL_IN8(rst,0,0);
     CData/*7:0*/ sar_control__DOT__cur;
     CData/*7:0*/ sar_control__DOT__val;
     CData/*7:0*/ sar_control__DOT__val_nxt;

@@ -1,11 +1,11 @@
 # Tiny Tapeout project information
 project:
-  title:        "tt_um_eestevez3_SAR_ADC"      # Project title
+  title:        "8 Bit SAR ADC"      # Project title
   author:       "Eric Estevez"      # Your name
-  discord:      "Cirex145"      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
+  discord:      ""      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
   description:  "Convert analog signal to digital"      # One line description of what your project does
   language:     "Analog" # other examples include Verilog, Amaranth, VHDL, etc
-  clock_hz:     1M, 100K       # Clock frequency in Hz (or 0 if not applicable)
+  clock_hz:     100K       # Clock frequency in Hz (or 0 if not applicable)
 
   # How many tiles your design occupies? A single tile is about 167x108 uM.
   tiles: "1x2"          # Valid values for analog projects: 1x2, 2x2
@@ -15,7 +15,7 @@ project:
   uses_3v3: false       # Set to true if your project uses 3.3V (VAPWR) in addition to 1.8V (VDPWR)
 
   # Your top module name must start with "tt_um_". Make it unique by including your github username:
-  top_module:  "tt_um_example"
+  top_module:  "tt_um_eestevez3_SAR_ADC"
 
   # List your project's source files here. Source files must be in ./src and you must list each source file separately, one per line:
   source_files:        
@@ -27,7 +27,7 @@ pinout:
   # Inputs
   ui[0]: "comparator enable"
   ui[1]: "comparator calibration"
-  ui[2]: "sar logic clock"
+  ui[2]: ""
   ui[3]: ""
   ui[4]: ""
   ui[5]: ""
@@ -45,8 +45,8 @@ pinout:
   uo[7]: "sar bit 7"
 
   # Bidirectional pins
-  uio[0]: "valid"
-  uio[1]: ""
+  uio[0]: "sar clock"
+  uio[1]: "comp done"
   uio[2]: ""
   uio[3]: ""
   uio[4]: ""
