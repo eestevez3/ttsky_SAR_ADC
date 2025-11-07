@@ -4,6 +4,9 @@
 
 - [Read the documentation for project](docs/info.md)
 
+![layout](docs/layout.png)
+3D-viewer: https://gds-viewer.tinytapeout.com/?model=https://eestevez3.github.io/ttsky_SAR_ADC/tinytapeout.gds&process=SKY130
+
 ## What is Tiny Tapeout?
 
 Tiny Tapeout is an educational project that aims to make it easier and cheaper than ever to get your digital designs manufactured on a real chip.
